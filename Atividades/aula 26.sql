@@ -1,0 +1,109 @@
+/* aula 26/08/2020 */
+CREATE DATABASE aula26Agosto;
+use aula26Agosto;
+
+CREATE TABLE IF NOT EXISTS FORNECEDOR (
+IDFORNECEDOR INT  auto_increment NOT NULL,
+NOME VARCHAR(45),
+ENDERECO VARCHAR(45),
+TELEFONE INT,
+CIDADE VARCHAR(20) DEFAULT 'SÃO PAULO',
+EMAIL VARCHAR(25) UNIQUE,
+PRIMARY KEY (IDFORNECEDOR)
+);
+
+CREATE TABLE IF NOT EXISTS PRODUTO (
+IDPRODUTO INT NOT NULL,
+DESCRICAO VARCHAR(45),
+PRECO DECIMAL(7,2),
+UNIDADE VARCHAR(10),
+IDFORNECEDOR INT NOT NULL,
+PRIMARY KEY (IDPRODUTO),
+foreign key (IDFORNECEDOR) references FORNECEDOR(IDFORNECEDOR)
+);
+INSERT INTO FORNECEDOR VALUES 
+(1,'PAPEL RECICLADO','RUA BRASIL,1000',4441212,'BRAGANÇA PAULISTA',
+'RECI@GMAIL.COM');
+
+INSERT INTO FORNECEDOR VALUES
+(IDFORNECEDOR, 'CASA BAHIA','RUA DO MERCADO,200',40338787,'BRAGANÇA PAULISTA',
+'CASABAHIA@GMAIL.COM'),
+(IDFORNECEDOR,'LOJA CEM','RUA DO COMERCIO,9000',40334455,'BRAGANÇA PAULISTA',
+'LOJACEM@GMAIL.COM'),
+(IDFORNECEDOR,'MAGAZINE LUIZA','RUA PIRES PIMENTEL,500',40331212, 'BRAGANÇA PAULISTA',
+'LUIZA@GMAIL.COM');
+SELECT * FROM FORNECEDOR;
+
+INSERT INTO produto VALUES 
+(100,'FOGAO',800.50,'PC',2),
+(110,'GELADEIRA',2000.70,'PC',2),
+(150,'FOGAO COOKTOP',1330.40,'PC',3),
+(160,'AR CONDICIONADO',1800,'PC',4);
+
+select * from fornecedor;
+select * from produto;
+
+select idproduto, descricao from produto;
+select idfornecedor, email from fornecedor;
+select * from fornecedor order by nome;
+select * from fornecedor order by nome Asc;
+select * from fornecedor order by nome desc;
+/* Comando para exibir descrição , preço por ordem descrescente de preço*/
+
+select descricao, preco from produto order by preco desc;
+/* Exibir todos os produtos cuja descrição comecem com a letra fo*/
+select * from produto where descricao like 'FO%';
+
+/* Exibir todos os produtos cuja descrição não comecem com a letra fo*/
+select * from produto where descricao not like 'FO%';
+
+select all idfornecedor from produto;
+select distinct idfornecedor from produto;
+
+/*-----------------------------------------------------*/
+/* efeito cascasta na criaçaõ da tabela
+/* aula 26/08/2020 */
+drop database aula24agosto;
+CREATE DATABASE aula26Agosto;
+use aula26Agosto;
+
+CREATE TABLE IF NOT EXISTS FORNECEDOR (
+IDFORNECEDOR INT  auto_increment NOT NULL,
+NOME VARCHAR(45),
+ENDERECO VARCHAR(45),
+TELEFONE INT,
+CIDADE VARCHAR(20) DEFAULT 'SÃO PAULO',
+EMAIL VARCHAR(25) UNIQUE,
+PRIMARY KEY (IDFORNECEDOR)
+);
+
+CREATE TABLE IF NOT EXISTS PRODUTO (
+IDPRODUTO INT NOT NULL,
+DESCRICAO VARCHAR(45),
+PRECO DECIMAL(7,2),
+UNIDADE VARCHAR(10),
+IDFORNECEDOR INT NOT NULL,
+PRIMARY KEY (IDPRODUTO),
+foreign key (IDFORNECEDOR) references FORNECEDOR(IDFORNECEDOR)
+on delete cascade on update cascade
+);
+INSERT INTO FORNECEDOR VALUES 
+(1,'PAPEL RECICLADO','RUA BRASIL,1000',4441212,'BRAGANÇA PAULISTA',
+'RECI@GMAIL.COM');
+
+INSERT INTO FORNECEDOR VALUES
+(IDFORNECEDOR, 'CASA BAHIA','RUA DO MERCADO,200',40338787,'BRAGANÇA PAULISTA',
+'CASABAHIA@GMAIL.COM'),
+(IDFORNECEDOR,'LOJA CEM','RUA DO COMERCIO,9000',40334455,'BRAGANÇA PAULISTA',
+'LOJACEM@GMAIL.COM'),
+(IDFORNECEDOR,'MAGAZINE LUIZA','RUA PIRES PIMENTEL,500',40331212, 'BRAGANÇA PAULISTA',
+'LUIZA@GMAIL.COM');
+SELECT * FROM FORNECEDOR;
+
+INSERT INTO produto VALUES 
+(100,'FOGAO',800.50,'PC',2),
+(110,'GELADEIRA',2000.70,'PC',2),
+(150,'FOGAO COOKTOP',1330.40,'PC',3),
+(160,'AR CONDICIONADO',1800,'PC',4);
+
+select * from produto;
